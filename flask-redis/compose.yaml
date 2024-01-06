@@ -1,8 +1,14 @@
+version: '3.8'
+
 services:
   redis:
-    image: redislabs/redismod
+    image: redis:alpine
     ports:
       - '6379:6379'
+    volumes:
+      - ./redis-server.conf:/etc/redis/redis.conf
+    command: ["redis-server", "/etc/redis/redis.conf"]
+
   web:
     build:
       context: .
@@ -10,9 +16,18 @@ services:
     # flask requires SIGINT to stop gracefully
     # (default stop signal from Compose is SIGTERM)
     stop_signal: SIGINT
+    environment:
+      - REDIS_PORT=6379
+      - FLASK_PORT=8000
     ports:
       - '8000:8000'
     volumes:
       - .:/code
     depends_on:
       - redis
+    secrets:
+      - redis-password
+
+secrets:
+  redis-password:
+    file: ./redis-creds
