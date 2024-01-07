@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-web-app
+  labels:
+    app: web-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      containers:
+        - name: flask-web-app
+          image: ansu0122/flask-redis-web:2.0
+          ports:
+            - containerPort: 8000
+          workingDir: /code
+          env:
+            - name: FLASK_PORT
+              valueFrom: 
+                configMapKeyRef:
+                  name: web-app-configmap
+                  key: flask_port
+            - name: REDIS_PORT
+              valueFrom: 
+                configMapKeyRef:
+                  name: web-app-configmap
+                  key: redis_port
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: web-app-secret
+                  key: redis-password
+      restartPolicy: Always
+      volumes:
+        - name: web-claim0
+          persistentVolumeClaim:
+            claimName: web-claim0
+

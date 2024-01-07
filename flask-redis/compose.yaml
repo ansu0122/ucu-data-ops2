@@ -15,8 +15,11 @@ services:
       target: builder
     # flask requires SIGINT to stop gracefully
     # (default stop signal from Compose is SIGTERM)
+    image: ansu0122/flask-redis-web:2.0
     stop_signal: SIGINT
+    # command: /bin/bash -c 'cat /run/secrets/redis-password'
     environment:
+      - DB_PASSWORD=123456Qwerty
       - REDIS_PORT=6379
       - FLASK_PORT=8000
     ports:

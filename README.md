@@ -13,6 +13,7 @@ https://gist.github.com/juancsr/5927e6660d6ba5d2a34c61802d26e50a
 > minikube delete
 # to pause k8s related containers
 > minikube pause
+> minikube tunnel
 
 
 > kubectl get nodes -o wide
@@ -21,6 +22,23 @@ https://gist.github.com/juancsr/5927e6660d6ba5d2a34c61802d26e50a
 > kubectl api-resources
 # runnable objects
 > kubectl get all
+> kubectl api-resources
+> kubectl apply -f .
+> kubectl run redis-db --image=redis:alpine
+> kubectl get pods -o wide
+> kubectl get pods redis-db -o yaml
+> kubectl describe pods redis-db
+> kubectl edit pods redis-db
+> kubectl create deployment redis-deployment --image=redis
+> watch -n 1 'kubectl get all'
+> kubectl edit deployment redis-deployment
+> kubectl apply -f k8s/redis-deployment.yaml
+# namespaces
+> kubectl get ns
+> kubectl get all -n default
+> kubens test
+# clusters
+> kubectx
 
 # images
 > docker images

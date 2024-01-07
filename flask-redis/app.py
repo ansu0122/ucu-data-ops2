@@ -3,11 +3,9 @@ from redis import Redis
 import os
 
 app = Flask(__name__)
-with open('/run/secrets/redis-password', 'r') as file:
-    redis_password = file.read().strip()
-
+print(str(os.environ.get('DB_PASSWORD')))
 redis = Redis(host='redis', port=int(os.environ.get(
-    'REDIS_PORT', 6379)), password=redis_password)
+    'REDIS_PORT', 6379)), password=str(os.environ.get('DB_PASSWORD')))
 
 
 @app.route('/')
@@ -18,5 +16,6 @@ def hello():
 
 
 if __name__ == "__main__":
+    str(os.environ.get('DB_PASSWORD'))
     app.run(host="0.0.0.0", port=int(os.environ.get(
-        'FLASK_PORT', 8050)), debug=True)
+        'FLASK_PORT', 8000)), debug=True)
