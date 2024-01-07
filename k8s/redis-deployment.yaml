@@ -26,12 +26,19 @@ spec:
             - containerPort: 6379
               hostPort: 6379
               protocol: TCP
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: web-app-secret
+                  key: redis-password
           volumeMounts:
-            - mountPath: /etc/redis/redis.conf
-              name: redis-claim0
+            - name: redis-config-volume
+              mountPath: /etc/redis/redis.conf
+              subPath: redis-server.conf
       restartPolicy: Always
       volumes:
-        - name: redis-claim0
-          persistentVolumeClaim:
-            claimName: redis-claim0
+        - name: redis-config-volume
+          configMap:
+            name: redis-config
 
