@@ -39,8 +39,4 @@ spec:
                   name: web-app-secret
                   key: redis-password
       restartPolicy: Always
-      volumes:
-        - name: web-claim0
-          persistentVolumeClaim:
-            claimName: web-claim0
 

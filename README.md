@@ -39,6 +39,7 @@ https://gist.github.com/juancsr/5927e6660d6ba5d2a34c61802d26e50a
 > kubens test
 # clusters
 > kubectx
+> kubectl get nodes
 
 # images
 > docker images
