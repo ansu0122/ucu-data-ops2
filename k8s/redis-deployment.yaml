@@ -27,11 +27,11 @@ spec:
               hostPort: 6379
               protocol: TCP
           env:
-            - name: DB_PASSWORD
+            - name: REDIS_PORT
               valueFrom:
-                secretKeyRef:
-                  name: web-app-secret
-                  key: redis-password
+                configMapKeyRef:
+                  name: web-app-configmap
+                  key: redis_port
           volumeMounts:
             - name: redis-config-volume
               mountPath: /etc/redis/redis.conf
